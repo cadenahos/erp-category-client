@@ -2,8 +2,11 @@
   "version": 2,
   "builds": [
     {
-      "src": "dist/datta-able-free-angular-admin-template/**",
-      "use": "@vercel/static"
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist/datta-able-free-angular-admin-template"
+      }
     }
   ],
   "rewrites": [
