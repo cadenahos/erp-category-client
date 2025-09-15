@@ -15,7 +15,7 @@ interface CategoriesResponse {
 })
 export class CategoriesRepository {
   private http = inject(HttpClient);
-  private apiUrl = environment.apiUrl || 'http://localhost:3000/api/v1';
+  private apiUrl = environment.apiUrl + '/api/' + environment.apiVersion || 'http://localhost:3000/api/v1';
 
   getCategories(): Observable<Category[]> {
     return this.http.get<CategoriesResponse>(`${this.apiUrl}/categories`).pipe(

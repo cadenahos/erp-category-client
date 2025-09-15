@@ -1,4 +1,5 @@
 import { inject, Injectable } from '@angular/core';
+import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, of } from 'rxjs';
@@ -11,7 +12,8 @@ import { tap, catchError, map } from 'rxjs/operators';
 export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
-  private apiUrl = 'http://localhost:3000/api/v1'; // Replace with your backend URL
+  private apiUrl = environment.apiUrl + '/api/' + environment.apiVersion || 'http://localhost:3000/api/v1';
+
   private currentUserSubject = new BehaviorSubject<AuthResponse | null>(
     localStorage.getItem('authData') ? JSON.parse(localStorage.getItem('authData')!) : null
   );

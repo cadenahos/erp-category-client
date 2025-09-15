@@ -15,7 +15,7 @@ interface ClientsResponse {
 })
 export class ClientsRepository {
   private http = inject(HttpClient);
-  private apiUrl = environment.apiUrl || 'http://localhost:3000/api/v1';
+  private apiUrl = environment.apiUrl + '/api/' + environment.apiVersion || 'http://localhost:3000/api/v1';
 
   getClients(): Observable<Client[]> {
     return this.http.get<ClientsResponse>(`${this.apiUrl}/clients`).pipe(
