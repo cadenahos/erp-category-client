@@ -1,170 +1,281 @@
-# Datta Able Angular 18 Free Admin Dashboard [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Get%20Datta%20%20Able%20Angular%20-%20The%20Most%20Beautiful%20Bootstrap%20Designed%20Admin%20Dashboard%20Template%20&url=https://codedthemes.com/demos/admin-templates/datta-able/angular/default&via=codedthemes&hashtags=angular,webdev,developers,typescript)
+Datta Able Free Angular Admin Template
+Descripción
+Datta Able Free Angular Admin Template es una aplicación web desarrollada con Angular 18 que proporciona una interfaz de administración para gestionar usuarios, categorías y clientes. La aplicación utiliza Bootstrap para un diseño responsivo y está integrada con una API RESTful para operaciones CRUD (Crear, Leer, Actualizar, Eliminar). Incluye autenticación de usuarios, autorización mediante tokens JWT, y una interfaz de usuario moderna basada en el template Datta Able.
+Características principales
 
+Gestión de entidades:
+Usuarios: Crear, editar, eliminar y listar usuarios con roles y estados.
+Categorías: Crear, editar, eliminar y listar categorías con atributos como nombre, descripción, color, orden y estado activo.
+Clientes: Crear, editar, eliminar y listar clientes asociados a categorías.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Price](https://img.shields.io/badge/price-FREE-0098f7.svg)](https://codedthemes.com/item/datta-able-angular-lite/)
-[![GitHub package version](https://img.shields.io/github/package-json/v/codedthemes/datta-able-free-angular-admin-template)](https://github.com/codedthemes/datta-able-free-angular-admin-template/)
-[![Download ZIP](https://img.shields.io/badge/Download-ZIP-blue?style=flat-square&logo=github)](https://codedthemes.com/item/datta-able-angular-lite/)
-[![Join Discord](https://img.shields.io/badge/Join-Discord-5865F2?style=flat-square&logo=discord&logoColor=white)](https://discord.com/invite/p2E2WhCb6s)
+Confirmación de eliminación: Cada acción de eliminación en las tablas de usuarios, categorías y clientes muestra un modal de confirmación para evitar eliminaciones accidentales.
+Modales para crear/editar: Formularios modales para crear y editar entidades, con validación básica en el frontend.
+Autenticación: Login y logout con soporte para tokens JWT y refresco de tokens.
+Tablas dinámicas: Componente reutilizable DataTableComponent con búsqueda, ordenación y paginación.
+Despliegue: Configurado para despliegue en Vercel con soporte para variables de entorno.
 
-Datta Able is a free angular admin dashboard template built with Angular and latest Bootstrap 5. It is meant to provide the best possible User Experience with highly customizable feature-rich pages. It is a complete Dashboard Template that has easy and intuitive responsive design whether it is viewed on retina screens or laptops.
+Requisitos previos
 
-✨ Support us! If you like this theme, click the ⭐ (Top right) and let it shine
+Node.js: v18.x o superior
+Angular CLI: v18.x (npm install -g @angular/cli)
+Backend API: Servidor RESTful (por ejemplo, Node.js con endpoints /api/login, /api/register, /api/users, /api/categories, /api/clients)
+Vercel CLI: Para despliegue (npm install -g vercel)
 
-![IMG_8566.jpg](https://org-public-assets.s3.us-west-2.amazonaws.com/Free-Version-Banners/GITHUB-FREE-ANGULAR-REPO%20-%20Datta%20Able.jpg)
+Instalación
 
-## Table of contents
+Clonar el repositorio:
+git clone <url-del-repositorio>
+cd datta-able-free-angular-admin-template
 
-- [Getting Started](#getting-started)
-- [Download](#download)
-- [Why Datta Able?](#why-datta-able)
-- [What's included in Premium Version?](#whats-included-in-premium-version)
-- [Documentation](#documentation)
-- [Browser support](#browser-support)
-- [Technology Stack](#technology-stack)
-- [Other Technologies](#other-technologies)
-- 💰[Save more with Big Bundle](#save-more-with-big-bundle)💰
-- [More Angular Dashboard Templates](#more-angular-dashboard-templates)
-- [Issues?](#issues)
-- [License](#license)
-- [Contributor](#contributor)
-- [Useful Resources](#useful-resources)
-- [Community](#community)
-- [Follow us](#follow-us)
+Instalar dependencias:
+npm install
 
-## Getting Started
+Configurar variables de entorno:
 
-1. Clone from Github
+Crea un archivo src/environments/environment.ts:export const environment = {
+production: false,
+apiUrl: '<http://localhost:3000/api>'
+};
 
-```
-git clone https://github.com/codedthemes/datta-able-free-angular-admin-template.git
-```
+Para producción, crea src/environments/environment.prod.ts:export const environment = {
+production: true,
+apiUrl: '<https://your-api.com/api>'
+};
 
-2. Install packages
+Iniciar el servidor backend:
 
-```
-yarn
-```
+Asegúrate de que el servidor backend esté ejecutándose en <http://localhost:3000> (o la URL configurada en environment.ts).
+Configura CORS en el backend para permitir solicitudes desde <http://localhost:4200:const> cors = require('cors');
+app.use(cors({ origin: '<http://localhost:4200>' }));
 
-3. Run project
+Ejecutar la aplicación:
+ng serve
 
-```
-yarn start
-```
+Abre <http://localhost:4200> en tu navegador.
 
-## Download
+Estructura del proyecto
+src/
+├── app/
+│ ├── components/
+│ │ ├── confirm-modal/ # Modal de confirmación para eliminación
+│ │ ├── data-table/ # Componente de tabla dinámica
+│ │ ├── header/ # Componente de cabecera con navegación
+│ │ ├── modal/ # Modal para crear/editar entidades
+│ ├── demo/
+│ │ ├── pages/
+│ │ │ ├── users/ # Componente para gestionar usuarios
+│ │ │ ├── categories/ # Componente para gestionar categorías
+│ │ │ ├── clients/ # Componente para gestionar clientes
+│ │ ├── dashboard/ # Dashboard principal
+│ ├── models/ # Interfaces para User, Category, Client
+│ ├── repositories/ # Servicios para interactuar con la API
+│ ├── theme/
+│ │ ├── layout/
+│ │ │ ├── admin/ # Layout para rutas autenticadas
+│ │ │ ├── guest/ # Layout para rutas públicas (login/register)
+│ ├── environments/ # Configuraciones de entorno
+│ ├── app-routing.module.ts # Configuración de rutas
+│ ├── auth.guard.ts # Guardia de autenticación
+│ ├── auth.interceptor.ts # Interceptor para añadir token JWT
+├── styles.scss # Estilos globales (Bootstrap)
+├── angular.json # Configuración de Angular CLI
+├── vercel.json # Configuración para despliegue en Vercel
 
-- Datta Able Free
-  - [Live Preview](https://codedthemes.com/demos/admin-templates/datta-able/angular/free/dashboard)
-  - [Download](https://github.com/codedthemes/datta-able-free-angular-admin-template)
-- Datta Able Pro
-  - [Live Preview](https://codedthemes.com/demos/admin-templates/datta-able/angular/default/)
-  - [Download](https://codedthemes.com/item/datta-able-angular)
+Componentes principales
 
-## Why Datta Able?
+ConfirmModalComponent: Muestra un modal de confirmación antes de eliminar un usuario, categoría o cliente.
+DataTableComponent: Tabla reusable con soporte para búsqueda, ordenación y paginación. Emite eventos para crear, editar y eliminar.
+ModalComponent: Modal para formularios de creación y edición de entidades.
+UsersComponent, CategoriesComponent, ClientsComponent: Gestionan las respectivas entidades, integrando DataTableComponent y ModalComponent.
+HeaderComponent: Barra de navegación con opciones de logout y enlaces a usuarios, categorías y clientes.
+AuthRepository: Maneja autenticación (login, logout, refresco de token).
+UsersRepository, CategoriesRepository, ClientsRepository: Servicios para operaciones CRUD en las respectivas entidades.
 
-Datta Able is offers everything you need to create dashboards. We have included the following high-end features in our initial release:
+Endpoints de la API
+La aplicación espera los siguientes endpoints en el servidor backend:
 
-- Modern aesthetics UI design
-- Bootstrap components
-- Fully Responsive, all modern browser supported
-- Easy to use code structure
-- Flexible & High-Performance code
-- Easy Documentation Guide
+Método
+Endpoint
+Descripción
 
-## What's included in Premium Version?
+POST
+/api/login
+Autenticación de usuario
 
-[Pro version](https://codedthemes.com/item/datta-able-angular/) of Datta Able Angular Dashboard template contains features like TypeScript, Apps, Authentication Methods (i.e. JWT), Advance Components, Form Plugins, Layouts, Widgets, and many more.
+POST
+/api/register
+Registro de usuario
 
-| [Datta Able Free](https://codedthemes.com/demos/admin-templates/datta-able/angular/free/dashboard) | [Datta able Pro](https://codedthemes.com/item/datta-able-angular)                |
-| -------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
-| **9** Demo pages                                                                                   | **45+** demo pages                                                |
-| -                                                                                                  | ✓ Multi-language                                                  |
-| -                                                                                                  | ✓ Dark/Light Mode 🌓                                              |
-| -                                                                                                  | ✓ TypeScript version                                              |
-| -                                                                                                  | ✓ 6+ color Options                                                |
-| -                                                                                                  | ✓ RTL                                                             |
-| ✓ [MIT License](https://github.com/codedthemes/datta-able-free-angular-admin-template/blob/master/LICENSE)                                                                                      | ✓ [Pro License](https://codedthemes.com/item/datta-able-angular/?utm_source=free_demo&utm_medium=codedthemes&utm_campaign=button_download_premium) |
+POST
+/api/refresh
+Refresco de token JWT
 
-## Documentation
+POST
+/api/logout
+Cierre de sesión
 
-[Datta Able Angular Documentation](https://codedthemes.gitbook.io/datta-angular/) helps you with installation, deployment, and troubleshooting.
+GET
+/api/users
+Lista de usuarios
 
-## Browser support
+POST
+/api/users
+Crear usuario
 
-<img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/chrome.png" width="45" height="45" > <img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/edge.png" width="45" height="45" > <img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/safari.png" width="45" height="45" > <img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/firefox.png" width="45" height="45" > <img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/opera.png" width="45" height="45" >
+PUT
+/api/users/:id
+Actualizar usuario
 
-## Technology Stack
+DELETE
+/api/users/:id
+Eliminar usuario
 
-- Bootstrap 5
-- Angular 18
-- Typescript
+GET
+/api/categories
+Lista de categorías
 
-## Other Technologies
+POST
+/api/categories
+Crear categoría
 
-| Technology                                                                                                                        | Free                                                                               | Pro                                                                       |
-| --------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| <p align="center"><img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/React.png" width="25" height="25"></p>   | [**Free**](https://codedthemes.com/item/datta-able-react-free-admin-template/)       | [**Pro**](https://codedthemes.com/item/datta-able-react-admin-template/)    |
-| <p align="center"><img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/Bootstrap.png" width="30" height="30"></p> | [**Free**](https://codedthemes.com/item/datta-able-bootstrap-lite/)     | [**Pro**](https://codedthemes.com/item/datta-able-bootstrap-admin-template/) |
-| <p align="center"><img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/tailwind.png" width="25" height="25"></p>       | [**Free**](https://codedthemes.com/item/datta-able-free-tailwind-admin-template/) | [**Pro**](https://codedthemes.com/item/datta-able-tailwind-admin-template/)        |
-| <p align="center"><img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/laravel.png" width="25" height="25"></p>       | - | [**Pro**](https://codedthemes.com/item/datta-able-laravel-admin-dashboard/)        |
- 
-## Save more with Big Bundle
+PUT
+/api/categories/:id
+Actualizar categoría
 
-[![bundle-image](https://org-public-assets.s3.us-west-2.amazonaws.com/Banners/Bundle+banner.png)](https://links.codedthemes.com/jhFBJ)
+DELETE
+/api/categories/:id
+Eliminar categoría
 
-## More Angular Dashboard Templates
+GET
+/api/clients
+Lista de clientes
 
-| Dashboard                                                                                                                                                          | FREE                                                                                | PRO                                                                                   |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| <img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/Berry%20with%20name.png"  height="30" style="display:inline-block; vertical-align:middle;">   | [**Free**](https://codedthemes.com/item/berry-angular-free-admin-template/)       | [**Pro**](https://codedthemes.com/item/berry-angular-admin-dashboard-template/)</span>   |
-| <img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/Mantis%20with%20name.png" height="30" style="display:inline-block; vertical-align:middle;">    | [**Free**](https://codedthemes.com/item/mantis-angular-free-admin-template/)      | [**Pro**](https://codedthemes.com/item/mantis-angular-admin-template/)</span>       |
-| <img src="https://org-public-assets.s3.us-west-2.amazonaws.com/logos/Gradient%20with%20name.png" height="30" style="display:inline-block; vertical-align:middle;"> | [**Free**](https://codedthemes.com/item/gradient-able-angular-free-admin-template/)       | [**Pro**](https://codedthemes.com/item/gradient-able-angular-admin-template/)</span> |
+POST
+/api/clients
+Crear cliente
 
-## Issues
+PUT
+/api/clients/:id
+Actualizar cliente
 
-If you found a bug in any version, please generate a [GitHub issue](https://github.com/codedthemes/datta-able-free-angular-admin-template/issues). We are trying our best to resolve the issue.
+DELETE
+/api/clients/:id
+Eliminar cliente
 
-## License
+Notas:
 
-- Licensed under [MIT](https://github.com/codedthemes/datta-able-free-angular-admin-template/blob/master/LICENSE)
-- Copyright © [CodedThemes](https://codedthemes.com/)
+Los endpoints deben devolver códigos de estado HTTP estándar (200, 201, 204).
+Las respuestas GET deben tener el formato { data: [], hasNextPage: boolean }.
 
-## Contributor 
+Despliegue en Vercel
 
-**CodedThemes Team**
+Instalar Vercel CLI:
+npm install -g vercel
 
-- https://x.com/codedthemes
-- https://github.com/codedthemes
+Configurar vercel.json:
+{
+"builds": [
+{
+"src": "package.json",
+"use": "@vercel/static-build",
+"config": {
+"distDir": "dist"
+}
+}
+],
+"routes": [
+{
+"src": "/(.*)",
+"dest": "/index.html"
+}
+]
+}
 
-**Rakesh Nakrani**
+Configurar variables de entorno en Vercel:
 
-- https://x.com/rakesh_nakrani
+En el panel de Vercel, añade:
+Key: API_URL
+Value: <https://your-api.com/api>
 
-**Brijesh Dobariya**
+Desplegar:
+git add .
+git commit -m "Actualización con modal de confirmación de eliminación"
+git push origin main
+vercel --prod
 
-- https://x.com/dobaria_brijesh
+Verificar:
 
-## Useful Resources
+Accede a la URL proporcionada por Vercel.
+Inicia sesión y verifica que las tablas de usuarios, categorías y clientes funcionan correctamente.
+Confirma que los modales de creación/edición y eliminación aparecen y realizan las acciones esperadas.
 
-- [More Admin Templates From CodedThemes](https://codedthemes.com/item/category/admin-templates/)
-- [Freebies From CodedThemes](https://codedthemes.com/item/category/free-templates/)
-- [Big Bundles](https://codedthemes.com/item/big-bundle/)
-- [Figma UI Kits](https://codedthemes.com/item/category/templates/figma/)
-- [Affiliate Program](https://codedthemes.com/affiliate/)
-- [Blogs](https://blog.codedthemes.com/)
+Pruebas
 
-## Community
+Iniciar el backend:
 
-- 👥Follow [@codedthemes](https://x.com/codedthemes)
-- 🔗Join [Discord](https://discord.com/invite/p2E2WhCb6s)
-- 🔔Subscribe to [Codedtheme Blogs](https://blog.codedthemes.com/)
+Asegúrate de que el servidor backend esté ejecutándose en <http://localhost:3000> (o la URL configurada).
 
-## Follow Us
+Probar la aplicación localmente:
+ng serve
 
-- [Twitter](https://twitter.com/codedthemes) 🐦
-- [Dribbble](https://dribbble.com/codedthemes) 🏀
-- [Github](https://github.com/codedthemes) 🐙
-- [LinkedIn](https://www.linkedin.com/company/codedthemes/) 💼
-- [Instagram](https://www.instagram.com/codedthemes/) 📷
-- [Facebook](https://www.facebook.com/codedthemes) 🟦
+Navega a <http://localhost:4200>.
+Inicia sesión con credenciales válidas (por ejemplo, <test1@example.com>).
+Verifica las siguientes funcionalidades:
+Tablas: Listado, búsqueda, ordenación y paginación en /users, /categories, /clients.
+Crear/Editar: Usa los botones "Create" y "Edit" para abrir modales y enviar datos a la API.
+Eliminar: Haz clic en "Delete", verifica que aparece un modal de confirmación con el mensaje adecuado:
+Usuarios: "Are you sure you want to delete this user?"
+Categorías: "Are you sure you want to delete this category?"
+Clientes: "Are you sure you want to delete this client?"
+
+Confirmación de eliminación: Confirma que "Cancel" cierra el modal sin acción y "Delete" elimina el registro y actualiza la tabla.
+Errores: Simula fallos en la API (por ejemplo, ID inválido) y verifica que los mensajes de error aparecen debajo de la tabla.
+
+Probar en Vercel:
+
+Tras el despliegue, verifica que todas las funcionalidades (login, CRUD, modales) funcionan correctamente.
+Revisa la consola del navegador para confirmar los logs esperados:
+API response for /api/users: { data: [...], hasNextPage: false }
+Fetched users: [...]
+API response for /api/categories: { data: [...], hasNextPage: true }
+Fetched categories: [...]
+Fetched categories for clients: [...]
+API response for /api/clients: { data: [...], hasNextPage: true }
+Fetched clients: [...]
+DataTable received data: [...]
+
+Verifica las solicitudes de red para confirmar que los endpoints devuelven códigos 200/201/204 y que el encabezado Authorization: Bearer <token> está presente.
+
+Resolución de problemas
+
+El modal de confirmación no aparece:
+Verifica que isConfirmModalOpen se establece en true en openDeleteModal.
+Asegúrate de que <app-confirm-modal> está incluido en las plantillas de UsersComponent, CategoriesComponent y ClientsComponent con las vinculaciones correctas.
+
+Las solicitudes API fallan:
+Confirma que API_URL está configurado correctamente en Vercel o en environment.ts.
+Asegúrate de que el backend permite CORS para la URL de la aplicación (local o desplegada).
+Verifica que los endpoints DELETE están implementados y devuelven 200/204.
+
+La tabla no se actualiza tras eliminar:
+Confirma que loadUsers, loadCategories o loadClients se llama tras una eliminación exitosa.
+Revisa la consola para detectar errores en las respuestas de la API.
+
+Errores de despliegue en Vercel:
+Revisa los logs de compilación en Vercel para identificar problemas (por ejemplo, dependencias faltantes).
+Asegúrate de que angular.json y vercel.json están alineados en distDir: "dist".
+
+Contribuciones
+
+Crea un fork del repositorio.
+Crea una rama para tu funcionalidad (git checkout -b feature/nueva-funcionalidad).
+Realiza tus cambios y haz commit (git commit -m "Añadir nueva funcionalidad").
+Envía la rama al repositorio remoto (git push origin feature/nueva-funcionalidad).
+Abre un Pull Request.
+
+Licencia
+Este proyecto está licenciado bajo la MIT License.
+Contacto
+Para preguntas o soporte, contacta al equipo de desarrollo en <correo@ejemplo.com>.
+
+Última actualización: 15 de septiembre de 2025
