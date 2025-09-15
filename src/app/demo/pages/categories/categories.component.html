@@ -1,0 +1,16 @@
+<app-data-table
+  [data]="categories"
+  [columns]="columns"
+  [pageSize]="10"
+  [createButton]="createButton"
+  (create)="openCreateModal()"
+  (edit)="openEditModal($event)"
+></app-data-table>
+<app-modal
+  [isOpen]="isModalOpen"
+  [entityType]="'category'"
+  [entity]="selectedEntity"
+  (save)="saveEntity($event)"
+  (close)="closeModal()"
+></app-modal>
+<div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>

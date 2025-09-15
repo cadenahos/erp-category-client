@@ -1,0 +1,87 @@
+<div *ngIf="isOpen" class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0, 0, 0, 0.5)">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {{ entityType === 'user' ? 'User' : entityType === 'category' ? 'Category' : 'Client' }} {{ entity.id ? 'Edit' : 'Create' }}
+        </h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="submit()">
+          <!-- User Form -->
+          <ng-container *ngIf="entityType === 'user'">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" [(ngModel)]="entity.email" name="email" required />
+            </div>
+            <div class="mb-3" *ngIf="!entity.id">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" [(ngModel)]="entity.password" name="password" required />
+            </div>
+            <div class="mb-3">
+              <label for="firstName" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="firstName" [(ngModel)]="entity.firstName" name="firstName" required />
+            </div>
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="lastName" [(ngModel)]="entity.lastName" name="lastName" required />
+            </div>
+          </ng-container>
+
+          <!-- Category Form -->
+          <ng-container *ngIf="entityType === 'category'">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" [(ngModel)]="entity.name" name="name" required />
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <textarea class="form-control" id="description" [(ngModel)]="entity.description" name="description"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="color" class="form-label">Color</label>
+              <input type="color" class="form-control form-control-color" id="color" [(ngModel)]="entity.color" name="color" required />
+            </div>
+            <div class="mb-3">
+              <label for="sortOrder" class="form-label">Sort Order</label>
+              <input type="number" class="form-control" id="sortOrder" [(ngModel)]="entity.sortOrder" name="sortOrder" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" [(ngModel)]="entity.isActive" name="isActive" />
+                Active
+              </label>
+            </div>
+          </ng-container>
+
+          <!-- Client Form -->
+          <ng-container *ngIf="entityType === 'client'">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" [(ngModel)]="entity.name" name="name" required />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" [(ngModel)]="entity.email" name="email" required />
+            </div>
+            <div class="mb-3">
+              <label for="phone" class="form-label">Phone</label>
+              <input type="text" class="form-control" id="phone" [(ngModel)]="entity.phone" name="phone" required />
+            </div>
+            <div class="mb-3">
+              <label for="category" class="form-label">Category</label>
+              <select class="form-control" id="category" [(ngModel)]="entity.category.id" name="category" required>
+                <option value="" disabled>Select a category</option>
+                <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+              </select>
+            </div>
+          </ng-container>
+
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-secondary ms-2" (click)="closeModal()">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

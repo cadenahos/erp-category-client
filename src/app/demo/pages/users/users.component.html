@@ -1,0 +1,23 @@
+<app-data-table
+  [data]="users"
+  [columns]="columns"
+  [pageSize]="10"
+  [createButton]="createButton"
+  (create)="openCreateModal()"
+  (edit)="openEditModal($event)"
+  (delete)="openDeleteModal($event)"
+></app-data-table>
+<app-modal
+  [isOpen]="isModalOpen"
+  [entityType]="'user'"
+  [entity]="selectedEntity"
+  (save)="saveEntity($event)"
+  (close)="closeModal()"
+></app-modal>
+<app-confirm-modal
+  [isOpen]="isConfirmModalOpen"
+  message="Are you sure you want to delete this user?"
+  (confirm)="confirmDelete()"
+  (close)="closeConfirmModal()"
+></app-confirm-modal>
+<div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
